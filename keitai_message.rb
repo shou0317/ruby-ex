@@ -13,32 +13,38 @@ module KeitaiMessage
     '9' => ['w' ,'x' ,'y' ,'z'],
   }.freeze
 
+  # 数値を変換し、文字列を返す
   def convert(rows)
-    splited_rows = split_rows(rows)
-    splited_row = splited_rows.map{|row| split_row(row)}
-    converted_row = splited_row.map{|row| convert_row(row)}
-    converted_rows = converted_row.join("\n")
+    split_rows(rows)
+      .map{|row| convert_row(split_row(row))}
+      .join("\n")
   end
 
   private
 
+  # 入力を行ごとに分割し、テストケースの数に応じて切り出す
   def split_rows(rows)
-    rows.split("\n").drop(1)
+    lines = rows.split("\n")
+    count = lines[0].to_i
+    lines[1..count]
   end
 
+  # 行を0で区切り、空文字列を除外
   def split_row(row)
+    raise ArgumentError, "Invalid input: #{row}" unless row.match?(/\A\d+(0\d+)*\z/)
     row.split('0').reject(&:empty?)
   end
 
+  # 行を文字に変換する
   def convert_row(row)
-    converted_col = convert_col(row)
-    converted_row = converted_col.join
+    row.map {|col| convert_col(col)}.join
   end
 
-  def convert_col(row)
-    row.map do |col|
-      assn = ASSN[col[0]]
-      assn[(col.size % assn.size) - 1]
-    end
+  # 行の要素を文字に変換する
+  def convert_col(col)
+    key = col[0]
+    count = col.length
+    assn = ASSN[key] || []
+    assn[count % assn.length - 1]
   end
 end
