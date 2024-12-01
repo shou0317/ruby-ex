@@ -1,5 +1,6 @@
-**aizu online jubge: keitai message**
+### ruby_exercises
 
-ruby力を高めるために取り組んだ時のものです
+### description:
+ruby力を高めるために、「アウトプットのネタに困ったらこれ！？」に記載されていた問題に取り組みました
 
-[参照した問題](https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=2006)
+[ブログ記事](https://blog.jnito.com/entry/2019/05/03/121235)
