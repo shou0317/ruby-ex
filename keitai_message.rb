@@ -1,6 +1,7 @@
 module KeitaiMessage
   extend self
 
+  # 数字に対応した文字の割り当て
   ASSN = {
     '1' => ['.', ',', '!', '?', ' '],
     '2' => ['a' ,'b' ,'c'],
@@ -22,11 +23,9 @@ module KeitaiMessage
 
   private
 
-  # 入力を行ごとに分割し、テストケースの数に応じて切り出す
+  # 入力を行ごとに分割し、テストケースの行を除外
   def split_rows(rows)
-    lines = rows.split("\n")
-    count = lines[0].to_i
-    lines[1..count]
+    rows.split("\n").drop(1)
   end
 
   # 行を0で区切り、空文字列を除外
@@ -44,7 +43,7 @@ module KeitaiMessage
   def convert_col(col)
     key = col[0]
     count = col.length
-    assn = ASSN[key] || []
+    assn = ASSN.fetch(key, [])
     assn[count % assn.length - 1]
   end
 end
