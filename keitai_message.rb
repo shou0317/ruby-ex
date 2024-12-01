@@ -1,7 +1,7 @@
 module KeitaiMessage
   extend self
 
-  HASH = {
+  ASSN = {
     '1' => ['.', ',', '!', '?', ' '],
     '2' => ['a' ,'b' ,'c'],
     '3' => ['d' ,'e' ,'f'],
@@ -13,26 +13,32 @@ module KeitaiMessage
     '9' => ['w' ,'x' ,'y' ,'z'],
   }.freeze
 
-  def convert(nums)
-    splited_nums = split_nums(nums)
-    converted_nums = convert_nums(splited_nums)
+  def convert(rows)
+    splited_rows = split_rows(rows)
+    splited_row = splited_rows.map{|row| split_row(row)}
+    converted_row = splited_row.map{|row| convert_row(row)}
+    converted_rows = converted_row.join("\n")
   end
 
   private
 
-  def split_nums(nums)
-    nums.split('0').reject(&:empty?)
+  def split_rows(rows)
+    rows.split("\n").drop(1)
   end
 
-  def convert_nums(splited_nums)
-    chars = generate_chars(splited_nums)
-    chars.join
+  def split_row(row)
+    row.split('0').reject(&:empty?)
   end
 
-  def generate_chars(splited_nums)
-    splited_nums.map do |s|
-      words = HASH[s[0]]
-      words[s.size % words.size - 1]
+  def convert_row(row)
+    converted_col = convert_col(row)
+    converted_row = converted_col.join
+  end
+
+  def convert_col(row)
+    row.map do |col|
+      assn = ASSN[col[0]]
+      assn[(col.size % assn.size) - 1]
     end
   end
 end
