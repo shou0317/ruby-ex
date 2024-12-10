@@ -9,11 +9,11 @@ class Calendar
   end
 
   def create_calendar
-    calendar = []
-    calendar.push(create_header)
-    calendar.push('Su Mo Tu We Th Fr Sa')
-    calendar.push(create_days)
-    calendar.join("\n")
+    [
+      create_header,
+      'Su Mo Tu We Th Fr Sa',
+      create_days,
+    ].join("\n")
   end
 
   def output_calendar
