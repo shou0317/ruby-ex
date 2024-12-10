@@ -1,33 +1,54 @@
 require 'date'
 
-def convert_month(m,y)
-  date = Date.new(y,m)
-  date.strftime('%B')
+class Calendar
+  attr_reader :year, :month
+
+  def initialize(year, month)
+    @year = year
+    @month = month
+  end
+
+  def create_calendar
+    calendar = []
+    calendar.push(create_header)
+    calendar.push('Su Mo Tu We Th Fr Sa')
+    calendar.push(create_days)
+    calendar.join("\n")
+  end
+
+  private
+
+  def create_header
+    date = Date.new(year, month)
+    converted_month = date.strftime('%B')
+    header = "    #{converted_month} #{year}"
+  end
+
+  def create_days
+    days = []
+    days = add_space(days)
+    days = add_days(days)
+    formated_days = arrange_format(days)
+  end
+
+  def add_space(days)
+    first_date = Date.new(year,month,1)
+    space = first_date.wday
+    days << ' ' * space
+  end
+
+  def add_days(days)
+    last_date = Date.new(year,month,-1)
+    last_day = last_date.day
+    (1..last_day).each {|day| days << day }
+  end
+
+  def arrange_format(days)
+    days.each_slice(7).map do |week|
+      week.map {|day| day.to_s.rjust(2)}
+          .join(' ')
+    end.join("\n")
+  end
 end
 
-def return_year(m,y)
-  y
-end
-
-def create_calendar(m,y)
-  first_date = Date.new(y,m,1)
-  last_date = Date.new(y,m,-1)
-
-  last_day = last_date.day
-  space_count = first_date.wday
-
-  days = []
-  days << ' ' * space_count
-  (1..last_day).each {|day| days << day }
-
-  days.each_slice(7).map do |week|
-    week.map {|day| day.to_s.rjust(2)}
-        .join(' ')
-  end.join("\n")
-end
-
-month = convert_month(4, 2013)
-year = return_year(4,2013)
-puts "     #{month} #{year}"
-puts 'Su Mo Tu We Th Fr Sa'
-puts create_calendar(4, 2013)
+puts Calendar.new(2013, 4).create_calendar

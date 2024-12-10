@@ -7,10 +7,12 @@
 1日:
 first_date = Date.new(y,m)
 曜日(数値): first_date.wday
+=> 挿入する空白の数を求める必要がある
 
 月末:
 last_date = Date.new(2024,12,-1)
 last_day = last_date.day
+=> 日付要素の数を知る必要がある
 
 3. 日付の作成
 日付を管理する配列を作成
