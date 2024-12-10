@@ -30,9 +30,9 @@ class Calendar
 
   def create_days
     days = []
-    days = add_space(days)
-    days = add_days(days)
-    formated_days = arrange_format(days)
+    add_space(days)
+    add_days(days)
+    arrange_format(days)
   end
 
   def add_space(days)
