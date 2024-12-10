@@ -31,29 +31,13 @@ class Calendar
   end
 
   def create_days
-    days = []
-    add_space(days)
-    add_days(days)
-    arrange_format(days)
-  end
-
-  def add_space(days)
     first_date = Date.new(year,month,1)
-    space = first_date.wday
-    space.times { days << ' ' }
-  end
-
-  def add_days(days)
     last_date = Date.new(year,month,-1)
-    last_day = last_date.day
-    (1..last_day).each {|day| days << day }
-  end
 
-  def arrange_format(days)
-    days.each_slice(7).map do |week|
-      week.map {|day| day.to_s.rjust(2)}
-          .join(' ')
-    end.join("\n")
+    days = Array.new(first_date.wday, ' ') # 空白を追加
+    days += (1..last_date.day).map {|day| day.to_s.rjust(2)} # 日付を追加
+
+    days.each_slice(7).map { |week| week.join(' ') }.join("\n")
   end
 end
 
