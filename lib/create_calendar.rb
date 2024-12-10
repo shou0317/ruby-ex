@@ -38,7 +38,7 @@ class Calendar
   def add_space(days)
     first_date = Date.new(year,month,1)
     space = first_date.wday
-    days << ' ' * space
+    space.times { days << ' ' }
   end
 
   def add_days(days)
