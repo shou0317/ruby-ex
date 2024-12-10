@@ -4,6 +4,10 @@ class Calendar
   attr_reader :year, :month
 
   def initialize(year, month)
+    raise ArgumentError, "Invalid year" unless year.is_a?(Integer)
+    raise ArgumentError, "Invalid month" unless year.is_a?(Integer)\
+      && (1..12).include?(month)
+
     @year = year
     @month = month
   end
