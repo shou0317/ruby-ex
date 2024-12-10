@@ -1,0 +1,34 @@
+1. プログラムに、年月日を渡す
+2. 年月日から1日と月末の日付と曜日を求める
+3. 指定された形式でカレンダーを出力する
+
+---
+2. 月初と月末の日付と曜日
+1日:
+first_date = Date.new(y,m)
+曜日(数値): first_date.wday
+=> 挿入する空白の数を求める必要がある
+
+月末:
+last_date = Date.new(2024,12,-1)
+last_day = last_date.day
+=> 日付要素の数を知る必要がある
+
+3. 日付の作成
+日付を管理する配列を作成
+最初の曜日に応じて、配列に空文字列を入れる
+1日から月末までの数字を配列に入れる
+
+出力
+7個ずつ分割する
+分割した配列の要素を、文字幅2にして半角空白で連結する
+全ての行を改行で連結する
+
+days = []
+day << ' ' * first_date.wday
+(1..last_day).each {|day| days << day }
+
+days.each_slice(7).map do |week|
+  week.map {|day| day.to_s.rjust(2)}
+      .join(' ')
+end
