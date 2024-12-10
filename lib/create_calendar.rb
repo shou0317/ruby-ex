@@ -16,6 +16,10 @@ class Calendar
     calendar.join("\n")
   end
 
+  def output_calendar
+    puts create_calendar
+  end
+
   private
 
   def create_header
@@ -51,4 +55,5 @@ class Calendar
   end
 end
 
-puts Calendar.new(2013, 4).create_calendar
+calendar = Calendar.new(2013, 4)
+calendar.output_calendar
