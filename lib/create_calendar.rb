@@ -37,6 +37,7 @@ class Calendar
     days = Array.new(first_date.wday, ' ') # 空白を追加
     days += (1..last_date.day).map {|day| day.to_s.rjust(2)} # 日付を追加
 
+    # 1週間ごとに分割して整形
     days.each_slice(7).map { |week| week.join(' ') }.join("\n")
   end
 end
