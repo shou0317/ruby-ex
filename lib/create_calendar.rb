@@ -15,7 +15,7 @@ class Calendar
   def create_calendar
     [
       create_header,
-      'Su Mo Tu We Th Fr Sa',
+      create_weekdays,
       create_days,
     ].join("\n")
   end
@@ -30,6 +30,10 @@ class Calendar
     Date.new(year, month).strftime("    %B %Y")
   end
 
+  def create_weekdays
+    'Su Mo Tu We Th Fr Sa'
+  end
+
   def create_days
     first_date = Date.new(year,month,1)
     last_date = Date.new(year,month,-1)
@@ -41,6 +45,3 @@ class Calendar
     days.each_slice(7).map { |week| week.join(' ') }.join("\n")
   end
 end
-
-calendar = Calendar.new(2013, 4)
-calendar.output_calendar
