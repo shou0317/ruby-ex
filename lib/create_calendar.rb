@@ -23,9 +23,7 @@ class Calendar
   private
 
   def create_header
-    date = Date.new(year, month)
-    converted_month = date.strftime('%B')
-    header = "    #{converted_month} #{year}"
+    Date.new(year, month).strftime("    %B %Y")
   end
 
   def create_days
