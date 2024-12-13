@@ -7,10 +7,7 @@ class KaraokeMachine
   end
 
   def transpose(amount)
-    melody.gsub(/[A-Z]#?/) do |key|
-      index = KEYS.index(key)
-      KEYS[(index + amount) % 12]
-    end
+    melody.gsub(/[A-Z]#?/){|key| KEYS[(KEYS.index(key)+ amount) % 12] }
   end
 end
 
