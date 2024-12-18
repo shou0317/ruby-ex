@@ -1,20 +1,10 @@
-# coding: utf-8
-
 class Bingo
   def self.generate_card
-    # 以下の行は削除して、自分でロジックを実装してください。
-    sample
-  end
-
-  def self.sample
-    <<-CARD
- B |  I |  N |  G |  O
-13 | 22 | 32 | 48 | 61
- 3 | 23 | 43 | 53 | 63
- 4 | 19 |    | 60 | 65
-12 | 16 | 44 | 50 | 75
- 2 | 28 | 33 | 56 | 68
-    CARD
+    rows = (1..75).each_slice(15).to_a.map {|rng| rng.sample(5) }.transpose
+    rows[2][2] = nil
+    header = %w(B I N G O).map{|s| s.to_s.rjust(2)}.join(" | ") + "\n"
+    f_rows = rows.map{|row| row.map{|col| col.to_s.rjust(2)}.join(" | ")}.join("\n")
+    card = header.concat(f_rows)
   end
 end
 
@@ -78,7 +68,6 @@ describe Bingo do
       expect(numbers_by_col.flatten.uniq).to eq numbers_by_col.flatten
     end
     it '毎回結果が変わること' do
-      pending '独自のコードを実装したらこの行は削除してください'
       cards = 10.times.map { Bingo.generate_card }
       expect(cards.uniq).to eq cards
     end
